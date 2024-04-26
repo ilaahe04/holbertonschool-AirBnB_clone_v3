@@ -13,16 +13,16 @@ from models.state import State
 from models.user import User
 
 
-@app_views.route("/status")
+@app_views.route("/status", strict_slashes=False)
 def status():
     return jsonify({"status": "OK"})
 
-@app_views.route("/stats")
+@app_views.route("/stats", strict_slashes=False)
 def stats():
     
-    return jsonify({"Amenity": storage.count(Amenity),
-                    "City": storage.count(City),
-                    "Place": storage.count(Place),
-                    "Review": storage.count(Review),
-                    "State": storage.count(State),
-                    "User": storage.count(User)})
+    return jsonify({"amenities": storage.count(Amenity),
+                    "cities": storage.count(City),
+                    "places": storage.count(Place),
+                    "reviews": storage.count(Review),
+                    "states": storage.count(State),
+                    "users": storage.count(User)})
