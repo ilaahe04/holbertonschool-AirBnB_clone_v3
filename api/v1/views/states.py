@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """State"""
 
 
@@ -59,7 +59,3 @@ def update_state(state_id):
             setattr(state, key, value)
     state.save()
     return jsonify(state.to_dict()), 200
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
