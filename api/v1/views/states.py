@@ -1,7 +1,3 @@
-#!/usr/bin/python3
-"""State"""
-
-
 from models.state import State
 from flask import jsonify, request, abort
 from api.v1.views import app_views
@@ -14,16 +10,15 @@ def get_states():
     return jsonify(states)
 
 
-@app_views.route("/states/<states_id>", methods=['GET'], strict_slashes=False)
-def get_states(states_id):
+@app_views.route("/states/<state_id>", methods=['GET'], strict_slashes=False)
+def get_state(state_id):
     state = storage.get("State", state_id)
     if not state:
         abort(404)
     return jsonify(state.to_dict())
 
 
-@app_views.route("/states/<state_id>", methods=["DELETE"],
-                 strict_slashes=False)
+@app_views.route("/states/<state_id>", methods=["DELETE"], strict_slashes=False)
 def delete_state(state_id):
     state = storage.get("State", state_id)
     if not state:
