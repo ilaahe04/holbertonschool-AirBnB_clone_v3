@@ -76,6 +76,6 @@ class FileStorage:
             return self.__objects[key]
         except KeyError:
             return None
-        
+
     def count(self, cls=None):
-        return len(self.all(cls)) 
+        return len(self.all(cls))
