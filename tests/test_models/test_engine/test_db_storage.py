@@ -95,7 +95,7 @@ class TestDBStorage(unittest.TestCase):
         state.save()
         state_id = state.id
         obj = storage.get(State, state_id)
-        obj2 = storage.get(State, 123)
+        obj2 = storage.get(State, "123")
         self.assertEqual(state, obj)
         self.assertFalse(obj is obj2)
 
