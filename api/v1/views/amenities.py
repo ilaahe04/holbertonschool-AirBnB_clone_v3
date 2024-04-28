@@ -9,7 +9,7 @@ from flask import jsonify, abort, request
 
 @app_views.route("/amenities", methods=['GET'], strict_slashes=False)
 def retrieves_all_amenities():
-    amenities = storage.all("Amenity").values()
+    amenities = storage.all(Amenity).values()
     amenities_list = []
     for amenity in amenities:
         amenities_list.append(amenity.to_dict())
@@ -19,7 +19,7 @@ def retrieves_all_amenities():
 @app_views.route("/amenities/<amenity_id>", methods=['GET'],
                  strict_slashes=False)
 def get_amenity(amenity_id):
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     return jsonify(amenity.to_dict())
@@ -28,7 +28,7 @@ def get_amenity(amenity_id):
 @app_views.route("/amenities/<amenity_id>", methods=["DELETE"],
                  strict_slashes=False)
 def delete_amenity(amenity_id):
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     storage.delete(amenity)
@@ -52,7 +52,7 @@ def create_amenity():
                  strict_slashes=False)
 def update_amenity(amenity_id):
     amenity_data = request.get_json()
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     if not amenity_data:

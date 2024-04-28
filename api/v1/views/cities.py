@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""City"""
+"""cities"""
 
 from flask import jsonify, request, abort
 from models import storage
@@ -41,12 +41,12 @@ def delete_city(city_id):
 @app_views.route("/states/<state_id>/cities", methods=["POST"],
                  strict_slashes=False)
 def create_city(state_id):
+    if not request.is_json:
+        abort(400, "Not a JSON")
     city_data = request.get_json()
     state = storage.get(State, state_id)
     if not state:
         abort(404)
-    if not city_data:
-        abort(400, "Not a JSON")
     if 'name' not in city_data:
         abort(400, "Missing name")
     city_data["state_id"] = state_id
@@ -57,13 +57,12 @@ def create_city(state_id):
 
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
 def update_city(city_id):
+    if not request.is_json:
+        abort(400, "Not a JSON")
     city_data = request.get_json()
     city = storage.get(City, city_id)
     if not city:
         abort(404)
-    if not city_data:
-        abort(400, "Not a JSON")
-
     ignore_keys = ['id', 'state_id', 'created_at', 'updated_at']
     for key, value in city_data.items():
         if key not in ignore_keys:
