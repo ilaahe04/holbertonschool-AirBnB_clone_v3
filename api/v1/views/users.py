@@ -50,12 +50,12 @@ def create_user():
 
 @app_views.route("/users/<user_id>", methods=["PUT"], strict_slashes=False)
 def update_user(user_id):
+    if not request.is_json:
+        abort(400, "Not a JSON")
     user_data = request.get_json()
     user = storage.get(User, user_id)
     if not user:
         abort(404)
-    if not user_data:
-        abort(400, "Not a JSON")
 
     ignore_keys = ["id", "email", "created_at", "updated_at"]
     for key, value in user_data.items():
