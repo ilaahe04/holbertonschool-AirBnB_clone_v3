@@ -2,6 +2,7 @@
 """It’s time to start your API!"""
 
 
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 from flask import Flask, Blueprint, jsonify
@@ -16,6 +17,9 @@ app.register_blueprint(app_views)
 @app.teardown_appcontext
 def teardown_appcontext(response_or_exc):
     storage.close()
+
+
+cors = CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
 
 @app.errorhandler(404)
